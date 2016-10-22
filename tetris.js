@@ -1,3 +1,9 @@
+// colors
+const WHITE = "#FFFFFF"
+const BRIGHT = "#C0C0C0"
+const DARK = "#808080"
+const BLACK = "#000000"
+
 // define tetromino patterns
 let iPattern1 = [[2, 0, 1], [2, 1, 2], [2, 2, 2], [2, 3, 3]]
 let iPattern2 = [[0, 1, 4], [1, 1, 5], [2, 1, 5], [3, 1, 6]]
@@ -152,16 +158,16 @@ class Tetris {
             i--
             switch (style) {
                 case 0:
-                context.fillStyle = "white"
+                context.fillStyle = WHITE
                 context.fillRect(16 * j, 16 * i, 16, 16)
                 break
 
                 case 1:
-                context.fillStyle = "black"
+                context.fillStyle = BLACK
                 context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = "yellow"
+                context.fillStyle = BRIGHT
                 context.fillRect(16 * j + 2, 16 * i + 2, 14, 12)
-                context.fillStyle = "red"
+                context.fillStyle = DARK
                 context.fillRect(16 * j + 4, 16 * i + 2, 2, 2)
                 context.fillRect(16 * j + 10, 16 * i + 2, 2, 2)
                 context.fillRect(16 * j + 2, 16 * i + 6, 2, 2)
@@ -173,11 +179,11 @@ class Tetris {
                 break
 
                 case 2:
-                context.fillStyle = "black"
+                context.fillStyle = BLACK
                 context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = "yellow"
+                context.fillStyle = BRIGHT
                 context.fillRect(16 * j, 16 * i + 2, 16, 12)
-                context.fillStyle = "red"
+                context.fillStyle = DARK
                 context.fillRect(16 * j, 16 * i + 2, 2, 2)
                 context.fillRect(16 * j + 4, 16 * i + 2, 2, 2)
                 context.fillRect(16 * j + 8, 16 * i + 2, 2, 2)
@@ -192,11 +198,11 @@ class Tetris {
                 break
 
                 case 3:
-                context.fillStyle = "black"
+                context.fillStyle = BLACK
                 context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = "yellow"
+                context.fillStyle = BRIGHT
                 context.fillRect(16 * j, 16 * i + 2, 14, 12)
-                context.fillStyle = "red"
+                context.fillStyle = DARK
                 context.fillRect(16 * j, 16 * i + 2, 2, 2)
                 context.fillRect(16 * j + 8, 16 * i + 2, 2, 2)
                 context.fillRect(16 * j + 4, 16 * i + 4, 2, 2)
@@ -209,11 +215,11 @@ class Tetris {
                 break
 
                 case 4:
-                context.fillStyle = "black"
+                context.fillStyle = BLACK
                 context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = "yellow"
+                context.fillStyle = BRIGHT
                 context.fillRect(16 * j + 2, 16 * i + 2, 12, 14)
-                context.fillStyle = "red"
+                context.fillStyle = DARK
                 context.fillRect(16 * j + 8, 16 * i + 2, 2, 2)
                 context.fillRect(16 * j + 4, 16 * i + 4, 2, 2)
                 context.fillRect(16 * j + 12, 16 * i + 4, 2, 2)
@@ -225,11 +231,11 @@ class Tetris {
                 break
 
                 case 5:
-                context.fillStyle = "black"
+                context.fillStyle = BLACK
                 context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = "yellow"
+                context.fillStyle = BRIGHT
                 context.fillRect(16 * j + 2, 16 * i, 12, 16)
-                context.fillStyle = "red"
+                context.fillStyle = DARK
                 context.fillRect(16 * j + 6, 16 * i, 2, 2)
                 context.fillRect(16 * j + 12, 16 * i, 2, 2)
                 context.fillRect(16 * j + 2, 16 * i + 2, 2, 2)
@@ -244,11 +250,11 @@ class Tetris {
                 break
 
                 case 6:
-                context.fillStyle = "black"
+                context.fillStyle = BLACK
                 context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = "yellow"
+                context.fillStyle = BRIGHT
                 context.fillRect(16 * j + 2, 16 * i, 12, 14)
-                context.fillStyle = "red"
+                context.fillStyle = DARK
                 context.fillRect(16 * j + 12, 16 * i + 0, 2, 2)
                 context.fillRect(16 * j + 6, 16 * i + 2, 2, 2)
                 context.fillRect(16 * j + 2, 16 * i + 4, 2, 2)
@@ -261,74 +267,74 @@ class Tetris {
                 break
 
                 case 7:
-                context.fillStyle = "black"
+                context.fillStyle = BLACK
                 context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = "yellow"
+                context.fillStyle = BRIGHT
                 context.fillRect(16 * j + 2, 16 * i + 2, 12, 12)
-                context.fillStyle = "black"
+                context.fillStyle = BLACK
                 context.fillRect(16 * j + 4, 16 * i + 4, 8, 8)
-                context.fillStyle = "white"
+                context.fillStyle = WHITE
                 context.fillRect(16 * j + 6, 16 * i + 6, 4, 4)
                 break
 
                 case 8:
-                context.fillStyle = "black"
+                context.fillStyle = BLACK
                 context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = "red"
+                context.fillStyle = DARK
                 context.fillRect(16 * j + 2, 16 * i + 2, 12, 12)
                 break
 
                 case 9:
-                context.fillStyle = "black"
+                context.fillStyle = BLACK
                 context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = "white"
+                context.fillStyle = WHITE
                 context.fillRect(16 * j + 2, 16 * i + 2, 12, 12)
-                context.fillStyle = "black"
+                context.fillStyle = BLACK
                 context.fillRect(16 * j + 4, 16 * i + 4, 8, 8)
                 break
 
                 case 10:
-                context.fillStyle = "black"
+                context.fillStyle = BLACK
                 context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = "red"
+                context.fillStyle = DARK
                 context.fillRect(16 * j + 2, 16 * i + 2, 12, 12)
-                context.fillStyle = "black"
+                context.fillStyle = BLACK
                 context.fillRect(16 * j + 4, 16 * i + 4, 8, 8)
-                context.fillStyle = "white"
+                context.fillStyle = WHITE
                 context.fillRect(16 * j + 6, 16 * i + 6, 4, 4)
                 break
 
                 case 11:
-                context.fillStyle = "black"
+                context.fillStyle = BLACK
                 context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = "yellow"
+                context.fillStyle = BRIGHT
                 context.fillRect(16 * j + 2, 16 * i + 2, 12, 12)
-                context.fillStyle = "white"
+                context.fillStyle = WHITE
                 context.fillRect(16 * j + 4, 16 * i + 4, 2, 6)
                 context.fillRect(16 * j + 6, 16 * i + 4, 6, 2)
-                context.fillStyle = "black"
+                context.fillStyle = BLACK
                 context.fillRect(16 * j + 10, 16 * i + 6, 2, 6)
                 context.fillRect(16 * j + 4, 16 * i + 10, 6, 2)
                 break
 
                 case 12:
-                context.fillStyle = "black"
+                context.fillStyle = BLACK
                 context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = "yellow"
+                context.fillStyle = BRIGHT
                 context.fillRect(16 * j + 2, 16 * i + 2, 12, 12)
-                context.fillStyle = "black"
+                context.fillStyle = BLACK
                 context.fillRect(16 * j + 6, 16 * i + 6, 4, 4)
                 break
 
                 case 13:
-                context.fillStyle = "black"
+                context.fillStyle = BLACK
                 context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = "yellow"
+                context.fillStyle = BRIGHT
                 context.fillRect(16 * j + 2, 16 * i + 2, 12, 12)
-                context.fillStyle = "white"
+                context.fillStyle = WHITE
                 context.fillRect(16 * j + 2, 16 * i + 2, 2, 10)
                 context.fillRect(16 * j + 4, 16 * i + 2, 10, 2)
-                context.fillStyle = "red"
+                context.fillStyle = DARK
                 context.fillRect(16 * j + 12, 16 * i + 4, 2, 10)
                 context.fillRect(16 * j + 2, 16 * i + 12, 10, 2)
                 break
@@ -354,21 +360,21 @@ class Tetris {
     paintBackground() {
         let canvas = document.getElementById("main-canvas")
         let context = canvas.getContext("2d")
-        context.fillStyle = "black"
+        context.fillStyle = BLACK
         context.fillRect(0, 0, 320, 288)
-        context.fillStyle = "white"
+        context.fillStyle = WHITE
         context.fillRect(14, 0, 196, 288)
         for (let i = 0; i < 24; i++) {
             for (let j of [1, 12]) {
-                context.fillStyle = "black"
+                context.fillStyle = BLACK
                 context.fillRect(16 * j, 12 * i, 16, 12)
-                context.fillStyle = "yellow"
+                context.fillStyle = BRIGHT
                 context.fillRect(16 * j, 12 * i, 2, 4)
                 context.fillRect(16 * j + 4, 12 * i, 6, 4)
                 context.fillRect(16 * j + 12, 12 * i, 4, 4)
                 context.fillRect(16 * j, 12 * i + 6, 6, 4)
                 context.fillRect(16 * j + 8, 12 * i + 6, 6, 4)
-                context.fillStyle = "white"
+                context.fillStyle = WHITE
                 context.fillRect(16 * j + 4, 12 * i, 2, 2)
                 context.fillRect(16 * j + 12, 12 * i, 2, 2)
                 context.fillRect(16 * j, 12 * i + 6, 2, 2)
