@@ -1,10 +1,17 @@
 const IDIOTRIS = false
-
+const ZOOM = 3
 // colors
 const WHITE = "#FFFFFF"
-const BRIGHT = "#FFFF00"
-const DARK = "#FF0000"
+const BRIGHT = "#0080FF"
+const DARK = "#0000FF"
 const BLACK = "#000000"
+
+let canvas = document.getElementById("main-canvas")
+let context = canvas.getContext("2d")
+let fillRect = (i, j, width, height, color) => {
+    context.fillStyle = color
+    context.fillRect(ZOOM * i, ZOOM * j, ZOOM * width, ZOOM * height)
+}
 
 // define tetromino patterns
 let iPattern1 = [[2, 0, 1], [2, 1, 2], [2, 2, 2], [2, 3, 3]]
@@ -174,189 +181,133 @@ class Tetris {
     }
 
     paint() {
-        let canvas = document.getElementById("main-canvas")
-        let context = canvas.getContext("2d")
-        context.clearRect(32, 0, 160, 288)
-        context.clearRect(240, 208, 64, 64)
+        fillRect(16, 0, 80, 144, WHITE)
+        fillRect(120, 104, 32, 32, WHITE)
 
         let drawBlock = (i, j, style) => {
             i--
+            fillRect(8 * j, 8 * i, 8, 8, BLACK)
             switch (style) {
                 case 1:
-                context.fillStyle = BLACK
-                context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = BRIGHT
-                context.fillRect(16 * j + 2, 16 * i + 2, 14, 12)
-                context.fillStyle = DARK
-                context.fillRect(16 * j + 4, 16 * i + 2, 2, 2)
-                context.fillRect(16 * j + 10, 16 * i + 2, 2, 2)
-                context.fillRect(16 * j + 2, 16 * i + 6, 2, 2)
-                context.fillRect(16 * j + 8, 16 * i + 6, 2, 2)
-                context.fillRect(16 * j + 12, 16 * i + 6, 2, 2)
-                context.fillRect(16 * j + 4, 16 * i + 10, 2, 2)
-                context.fillRect(16 * j + 12, 16 * i + 10, 2, 2)
-                context.fillRect(16 * j + 8, 16 * i + 12, 2, 2)
+                fillRect(8 * j + 1, 8 * i + 1, 7, 6, BRIGHT)
+                fillRect(8 * j + 2, 8 * i + 1, 1, 1, DARK)
+                fillRect(8 * j + 5, 8 * i + 1, 1, 1, DARK)
+                fillRect(8 * j + 1, 8 * i + 3, 1, 1, DARK)
+                fillRect(8 * j + 4, 8 * i + 3, 1, 1, DARK)
+                fillRect(8 * j + 6, 8 * i + 3, 1, 1, DARK)
+                fillRect(8 * j + 2, 8 * i + 5, 1, 1, DARK)
+                fillRect(8 * j + 6, 8 * i + 5, 1, 1, DARK)
+                fillRect(8 * j + 4, 8 * i + 6, 1, 1, DARK)
                 break
 
                 case 2:
-                context.fillStyle = BLACK
-                context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = BRIGHT
-                context.fillRect(16 * j, 16 * i + 2, 16, 12)
-                context.fillStyle = DARK
-                context.fillRect(16 * j, 16 * i + 2, 2, 2)
-                context.fillRect(16 * j + 4, 16 * i + 2, 2, 2)
-                context.fillRect(16 * j + 8, 16 * i + 2, 2, 2)
-                context.fillRect(16 * j + 12, 16 * i + 4, 2, 2)
-                context.fillRect(16 * j + 4, 16 * i + 6, 2, 2)
-                context.fillRect(16 * j, 16 * i + 8, 2, 2)
-                context.fillRect(16 * j + 10, 16 * i + 8, 2, 2)
-                context.fillRect(16 * j + 6, 16 * i + 10, 2, 2)
-                context.fillRect(16 * j + 14, 16 * i + 10, 2, 2)
-                context.fillRect(16 * j + 2, 16 * i + 12, 2, 2)
-                context.fillRect(16 * j + 10, 16 * i + 12, 2, 2)
+                fillRect(8 * j, 8 * i + 1, 8, 6, BRIGHT)
+                fillRect(8 * j, 8 * i + 1, 1, 1, DARK)
+                fillRect(8 * j + 2, 8 * i + 1, 1, 1, DARK)
+                fillRect(8 * j + 4, 8 * i + 1, 1, 1, DARK)
+                fillRect(8 * j + 6, 8 * i + 2, 1, 1, DARK)
+                fillRect(8 * j + 2, 8 * i + 3, 1, 1, DARK)
+                fillRect(8 * j, 8 * i + 4, 1, 1, DARK)
+                fillRect(8 * j + 5, 8 * i + 4, 1, 1, DARK)
+                fillRect(8 * j + 3, 8 * i + 5, 1, 1, DARK)
+                fillRect(8 * j + 7, 8 * i + 5, 1, 1, DARK)
+                fillRect(8 * j + 1, 8 * i + 6, 1, 1, DARK)
+                fillRect(8 * j + 5, 8 * i + 6, 1, 1, DARK)
                 break
 
                 case 3:
-                context.fillStyle = BLACK
-                context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = BRIGHT
-                context.fillRect(16 * j, 16 * i + 2, 14, 12)
-                context.fillStyle = DARK
-                context.fillRect(16 * j, 16 * i + 2, 2, 2)
-                context.fillRect(16 * j + 8, 16 * i + 2, 2, 2)
-                context.fillRect(16 * j + 4, 16 * i + 4, 2, 2)
-                context.fillRect(16 * j + 10, 16 * i + 6, 2, 2)
-                context.fillRect(16 * j + 2, 16 * i + 8, 2, 2)
-                context.fillRect(16 * j + 6, 16 * i + 8, 2, 2)
-                context.fillRect(16 * j + 12, 16 * i + 10, 2, 2)
-                context.fillRect(16 * j + 4, 16 * i + 12, 2, 2)
-                context.fillRect(16 * j + 8, 16 * i + 12, 2, 2)
+                fillRect(8 * j, 8 * i + 1, 7, 6, BRIGHT)
+                fillRect(8 * j, 8 * i + 1, 1, 1, DARK)
+                fillRect(8 * j + 4, 8 * i + 1, 1, 1, DARK)
+                fillRect(8 * j + 2, 8 * i + 2, 1, 1, DARK)
+                fillRect(8 * j + 5, 8 * i + 3, 1, 1, DARK)
+                fillRect(8 * j + 1, 8 * i + 4, 1, 1, DARK)
+                fillRect(8 * j + 3, 8 * i + 4, 1, 1, DARK)
+                fillRect(8 * j + 6, 8 * i + 5, 1, 1, DARK)
+                fillRect(8 * j + 2, 8 * i + 6, 1, 1, DARK)
+                fillRect(8 * j + 4, 8 * i + 6, 1, 1, DARK)
                 break
 
                 case 4:
-                context.fillStyle = BLACK
-                context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = BRIGHT
-                context.fillRect(16 * j + 2, 16 * i + 2, 12, 14)
-                context.fillStyle = DARK
-                context.fillRect(16 * j + 8, 16 * i + 2, 2, 2)
-                context.fillRect(16 * j + 4, 16 * i + 4, 2, 2)
-                context.fillRect(16 * j + 12, 16 * i + 4, 2, 2)
-                context.fillRect(16 * j + 2, 16 * i + 8, 2, 2)
-                context.fillRect(16 * j + 8, 16 * i + 8, 2, 2)
-                context.fillRect(16 * j + 12, 16 * i + 10, 2, 2)
-                context.fillRect(16 * j + 4, 16 * i + 12, 2, 2)
-                context.fillRect(16 * j + 8, 16 * i + 12, 2, 2)
+                fillRect(8 * j + 1, 8 * i + 1, 6, 7, BRIGHT)
+                fillRect(8 * j + 4, 8 * i + 1, 1, 1, DARK)
+                fillRect(8 * j + 2, 8 * i + 2, 1, 1, DARK)
+                fillRect(8 * j + 6, 8 * i + 2, 1, 1, DARK)
+                fillRect(8 * j + 1, 8 * i + 4, 1, 1, DARK)
+                fillRect(8 * j + 4, 8 * i + 4, 1, 1, DARK)
+                fillRect(8 * j + 6, 8 * i + 5, 1, 1, DARK)
+                fillRect(8 * j + 2, 8 * i + 6, 1, 1, DARK)
+                fillRect(8 * j + 4, 8 * i + 6, 1, 1, DARK)
                 break
 
                 case 5:
-                context.fillStyle = BLACK
-                context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = BRIGHT
-                context.fillRect(16 * j + 2, 16 * i, 12, 16)
-                context.fillStyle = DARK
-                context.fillRect(16 * j + 6, 16 * i, 2, 2)
-                context.fillRect(16 * j + 12, 16 * i, 2, 2)
-                context.fillRect(16 * j + 2, 16 * i + 2, 2, 2)
-                context.fillRect(16 * j + 8, 16 * i + 4, 2, 2)
-                context.fillRect(16 * j + 12, 16 * i + 4, 2, 2)
-                context.fillRect(16 * j + 4, 16 * i + 6, 2, 2)
-                context.fillRect(16 * j + 12, 16 * i + 8, 2, 2)
-                context.fillRect(16 * j + 2, 16 * i + 10, 2, 2)
-                context.fillRect(16 * j + 6, 16 * i + 10, 2, 2)
-                context.fillRect(16 * j + 10, 16 * i + 12, 2, 2)
-                context.fillRect(16 * j + 4, 16 * i + 14, 2, 2)
+                fillRect(8 * j + 1, 8 * i, 6, 8, BRIGHT)
+                fillRect(8 * j + 3, 8 * i, 1, 1, DARK)
+                fillRect(8 * j + 6, 8 * i, 1, 1, DARK)
+                fillRect(8 * j + 1, 8 * i + 1, 1, 1, DARK)
+                fillRect(8 * j + 4, 8 * i + 2, 1, 1, DARK)
+                fillRect(8 * j + 6, 8 * i + 2, 1, 1, DARK)
+                fillRect(8 * j + 2, 8 * i + 3, 1, 1, DARK)
+                fillRect(8 * j + 6, 8 * i + 4, 1, 1, DARK)
+                fillRect(8 * j + 1, 8 * i + 5, 1, 1, DARK)
+                fillRect(8 * j + 3, 8 * i + 5, 1, 1, DARK)
+                fillRect(8 * j + 5, 8 * i + 6, 1, 1, DARK)
+                fillRect(8 * j + 2, 8 * i + 7, 1, 1, DARK)
                 break
 
                 case 6:
-                context.fillStyle = BLACK
-                context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = BRIGHT
-                context.fillRect(16 * j + 2, 16 * i, 12, 14)
-                context.fillStyle = DARK
-                context.fillRect(16 * j + 12, 16 * i + 0, 2, 2)
-                context.fillRect(16 * j + 6, 16 * i + 2, 2, 2)
-                context.fillRect(16 * j + 2, 16 * i + 4, 2, 2)
-                context.fillRect(16 * j + 10, 16 * i + 4, 2, 2)
-                context.fillRect(16 * j + 6, 16 * i + 6, 2, 2)
-                context.fillRect(16 * j + 2, 16 * i + 8, 2, 2)
-                context.fillRect(16 * j + 12, 16 * i + 8, 2, 2)
-                context.fillRect(16 * j + 8, 16 * i + 10, 2, 2)
-                context.fillRect(16 * j + 4, 16 * i + 12, 2, 2)
+                fillRect(8 * j + 1, 8 * i, 6, 7, BRIGHT)
+                fillRect(8 * j + 6, 8 * i, 1, 1, DARK)
+                fillRect(8 * j + 3, 8 * i + 1, 1, 1, DARK)
+                fillRect(8 * j + 1, 8 * i + 2, 1, 1, DARK)
+                fillRect(8 * j + 5, 8 * i + 2, 1, 1, DARK)
+                fillRect(8 * j + 3, 8 * i + 3, 1, 1, DARK)
+                fillRect(8 * j + 1, 8 * i + 4, 1, 1, DARK)
+                fillRect(8 * j + 6, 8 * i + 4, 1, 1, DARK)
+                fillRect(8 * j + 4, 8 * i + 5, 1, 1, DARK)
+                fillRect(8 * j + 2, 8 * i + 6, 1, 1, DARK)
                 break
 
                 case 7:
-                context.fillStyle = BLACK
-                context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = BRIGHT
-                context.fillRect(16 * j + 2, 16 * i + 2, 12, 12)
-                context.fillStyle = BLACK
-                context.fillRect(16 * j + 4, 16 * i + 4, 8, 8)
-                context.fillStyle = WHITE
-                context.fillRect(16 * j + 6, 16 * i + 6, 4, 4)
+                fillRect(8 * j + 1, 8 * i + 1, 6, 6, BRIGHT)
+                fillRect(8 * j + 2, 8 * i + 2, 4, 4, BLACK)
+                fillRect(8 * j + 3, 8 * i + 3, 2, 2, WHITE)
                 break
 
                 case 8:
-                context.fillStyle = BLACK
-                context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = DARK
-                context.fillRect(16 * j + 2, 16 * i + 2, 12, 12)
+                fillRect(8 * j + 1, 8 * i + 1, 6, 6, DARK)
                 break
 
                 case 9:
-                context.fillStyle = BLACK
-                context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = WHITE
-                context.fillRect(16 * j + 2, 16 * i + 2, 12, 12)
-                context.fillStyle = BLACK
-                context.fillRect(16 * j + 4, 16 * i + 4, 8, 8)
+                fillRect(8 * j + 1, 8 * i + 1, 6, 6, WHITE)
+                fillRect(8 * j + 2, 8 * i + 2, 4, 4, BLACK)
                 break
 
                 case 10:
-                context.fillStyle = BLACK
-                context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = DARK
-                context.fillRect(16 * j + 2, 16 * i + 2, 12, 12)
-                context.fillStyle = BLACK
-                context.fillRect(16 * j + 4, 16 * i + 4, 8, 8)
-                context.fillStyle = WHITE
-                context.fillRect(16 * j + 6, 16 * i + 6, 4, 4)
+                fillRect(8 * j + 1, 8 * i + 1, 6, 6, DARK)
+                fillRect(8 * j + 2, 8 * i + 2, 4, 4, BLACK)
+                fillRect(8 * j + 3, 8 * i + 3, 2, 2, WHITE)
                 break
 
                 case 11:
-                context.fillStyle = BLACK
-                context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = BRIGHT
-                context.fillRect(16 * j + 2, 16 * i + 2, 12, 12)
-                context.fillStyle = WHITE
-                context.fillRect(16 * j + 4, 16 * i + 4, 2, 6)
-                context.fillRect(16 * j + 6, 16 * i + 4, 6, 2)
-                context.fillStyle = BLACK
-                context.fillRect(16 * j + 10, 16 * i + 6, 2, 6)
-                context.fillRect(16 * j + 4, 16 * i + 10, 6, 2)
+                fillRect(8 * j + 1, 8 * i + 1, 6, 6, BRIGHT)
+                fillRect(8 * j + 2, 8 * i + 2, 1, 3, WHITE)
+                fillRect(8 * j + 3, 8 * i + 2, 3, 1, WHITE)
+                fillRect(8 * j + 5, 8 * i + 3, 1, 3, BLACK)
+                fillRect(8 * j + 2, 8 * i + 5, 3, 1, BLACK)
                 break
 
                 case 12:
-                context.fillStyle = BLACK
-                context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = BRIGHT
-                context.fillRect(16 * j + 2, 16 * i + 2, 12, 12)
-                context.fillStyle = BLACK
-                context.fillRect(16 * j + 6, 16 * i + 6, 4, 4)
+                fillRect(8 * j + 1, 8 * i + 1, 6, 6, BRIGHT)
+                fillRect(8 * j + 3, 8 * i + 3, 2, 2, BLACK)
                 break
 
                 case 13:
-                context.fillStyle = BLACK
-                context.fillRect(16 * j, 16 * i, 16, 16)
-                context.fillStyle = BRIGHT
-                context.fillRect(16 * j + 2, 16 * i + 2, 12, 12)
-                context.fillStyle = WHITE
-                context.fillRect(16 * j + 2, 16 * i + 2, 2, 10)
-                context.fillRect(16 * j + 4, 16 * i + 2, 10, 2)
-                context.fillStyle = DARK
-                context.fillRect(16 * j + 12, 16 * i + 4, 2, 10)
-                context.fillRect(16 * j + 2, 16 * i + 12, 10, 2)
+                fillRect(8 * j + 1, 8 * i + 1, 6, 6, BRIGHT)
+                fillRect(8 * j + 1, 8 * i + 1, 1, 5, WHITE)
+                fillRect(8 * j + 2, 8 * i + 1, 5, 1, WHITE)
+                fillRect(8 * j + 6, 8 * i + 2, 1, 5, DARK)
+                fillRect(8 * j + 1, 8 * i + 6, 5, 1, DARK)
                 break
             }
         }
@@ -378,45 +329,35 @@ class Tetris {
         for (let i = 1; i < 19; i++) {
             for (let j = 2; j < 12; j++) {
                 let style = this.blocks[i][j]
-                drawBlock(i, j, style)
+                if (style !== 0) {
+                    drawBlock(i, j, style)
+                }
             }
         }
     }
 
     paintBackground() {
-        let canvas = document.getElementById("main-canvas")
-        let context = canvas.getContext("2d")
-        context.fillStyle = BLACK
-        context.fillRect(0, 0, 320, 288)
-        context.fillStyle = WHITE
-        context.fillRect(14, 0, 196, 288)
+        fillRect(0, 0, 160, 144, BLACK)
+        fillRect(7, 0, 98, 144, WHITE)
         // preview area
-        context.fillStyle = BRIGHT
-        context.fillRect(230, 198, 84, 84)
-        context.fillStyle = WHITE
-        context.fillRect(232, 200, 80, 80)
-        context.fillStyle = DARK
-        context.fillRect(234, 202, 76, 76)
-        context.fillStyle = BLACK
-        context.fillRect(236, 204, 72, 72)
-        context.fillStyle = WHITE
-        context.fillRect(238, 206, 68, 68)
+        fillRect(115, 99, 42, 42, BRIGHT)
+        fillRect(116, 100, 40, 40, WHITE)
+        fillRect(117, 101, 38, 38, DARK)
+        fillRect(118, 102, 36, 36, BLACK)
+        fillRect(119, 103, 34, 34, WHITE)
         // walls
         for (let i = 0; i < 24; i++) {
             for (let j of [1, 12]) {
-                context.fillStyle = BLACK
-                context.fillRect(16 * j, 12 * i, 16, 12)
-                context.fillStyle = BRIGHT
-                context.fillRect(16 * j, 12 * i, 2, 4)
-                context.fillRect(16 * j + 4, 12 * i, 6, 4)
-                context.fillRect(16 * j + 12, 12 * i, 4, 4)
-                context.fillRect(16 * j, 12 * i + 6, 6, 4)
-                context.fillRect(16 * j + 8, 12 * i + 6, 6, 4)
-                context.fillStyle = WHITE
-                context.fillRect(16 * j + 4, 12 * i, 2, 2)
-                context.fillRect(16 * j + 12, 12 * i, 2, 2)
-                context.fillRect(16 * j, 12 * i + 6, 2, 2)
-                context.fillRect(16 * j + 8, 12 * i + 6, 2, 2)
+                fillRect(8 * j, 6 * i, 8, 6, BLACK)
+                fillRect(8 * j, 6 * i, 1, 2, BRIGHT)
+                fillRect(8 * j + 2, 6 * i, 3, 2, BRIGHT)
+                fillRect(8 * j + 6, 6 * i, 2, 2, BRIGHT)
+                fillRect(8 * j, 6 * i + 3, 3, 2, BRIGHT)
+                fillRect(8 * j + 4, 6 * i + 3, 3, 2, BRIGHT)
+                fillRect(8 * j + 2, 6 * i, 1, 1, WHITE)
+                fillRect(8 * j + 6, 6 * i, 1, 1, WHITE)
+                fillRect(8 * j, 6 * i + 3, 1, 1, WHITE)
+                fillRect(8 * j + 4, 6 * i + 3, 1, 1, WHITE)
             }
         }
     }
