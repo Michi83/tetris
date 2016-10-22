@@ -55,12 +55,12 @@ class Tetris {
             }
             this.board.push(row)
         }
-        this.active = false
+        this.state = "dead"
         this.paintBackground()
     }
 
     clockwise() {
-        if (!this.active) {
+        if (this.state !== "active") {
             return
         }
         for (let coordinates of this.pattern.clockwise) {
@@ -76,7 +76,7 @@ class Tetris {
     }
 
     counterclockwise() {
-        if (!this.active) {
+        if (this.state !== "active") {
             return
         }
         for (let coordinates of this.pattern.counterclockwise) {
@@ -92,14 +92,14 @@ class Tetris {
     }
 
     down() {
-        if (this.active) {
+        if (this.state === "active") {
             for (let coordinates of this.pattern) {
                 let i = coordinates[0] + this.coordinates[0] + 1
                 let j = coordinates[1] + this.coordinates[1]
                 if (this.board[i][j] !== 0) {
                     // cannot move
                     for (let coordinates of this.pattern) {
-                        this.active = false
+                        this.state = "dead"
                         let i = coordinates[0] + this.coordinates[0]
                         let j = coordinates[1] + this.coordinates[1]
                         let style = coordinates[2]
@@ -128,11 +128,24 @@ class Tetris {
             }
             // move down
             this.coordinates[0]++
-        } else {
+        } else if (this.state === "dead") {
             // create new active tetromino
-            this.active = true
+            this.state = "active"
             this.coordinates = [0, 5]
             this.pattern = patterns[Math.floor(patterns.length * Math.random())]
+            for (let coordinates of this.pattern) {
+                let i = coordinates[0] + this.coordinates[0]
+                let j = coordinates[1] + this.coordinates[1]
+                if (this.board[i][j] !== 0) {
+                    this.state = "game over"
+                    for (let i = 18; i >= 1; i--) {
+                        for (let j = 2; j < 12; j++) {
+                            this.board[i][j] = 13
+                        }
+                    }
+                }
+                break
+            }
         }
         this.paint()
     }
@@ -347,7 +360,7 @@ class Tetris {
                 drawBlock(i, j, style)
             }
         }
-        if (this.active) {
+        if (this.state === "active") {
             for (let coordinates of this.pattern) {
                 let i = coordinates[0] + this.coordinates[0]
                 let j = coordinates[1] + this.coordinates[1]
