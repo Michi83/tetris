@@ -1,3 +1,5 @@
+const IDIOTRIS = false
+
 // colors
 const WHITE = "#FFFFFF"
 const BRIGHT = "#C0C0C0"
@@ -44,7 +46,12 @@ setRotation(oPattern1)
 setRotation(sPattern1, sPattern2)
 setRotation(tPattern1, tPattern2, tPattern3, tPattern4)
 setRotation(zPattern1, zPattern2)
-let patterns = [iPattern1, jPattern1, lPattern1, oPattern1, sPattern1, tPattern1, zPattern1]
+let patterns
+if (IDIOTRIS) {
+    patterns = [iPattern1]
+} else {
+    patterns = [iPattern1, jPattern1, lPattern1, oPattern1, sPattern1, tPattern1, zPattern1]
+}
 
 class Tetris {
     constructor() {
