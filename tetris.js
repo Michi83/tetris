@@ -2,8 +2,8 @@ const IDIOTRIS = false
 
 // colors
 const WHITE = "#FFFFFF"
-const BRIGHT = "#C0C0C0"
-const DARK = "#808080"
+const BRIGHT = "#FFFF00"
+const DARK = "#FF0000"
 const BLACK = "#000000"
 
 // define tetromino patterns
@@ -56,16 +56,17 @@ if (IDIOTRIS) {
 class Tetris {
     constructor() {
         this.paintBackground()
-        this.board = []
+        this.blocks = []
         for (let i = 0; i < 20; i++) {
             let row = []
             for (let j = 0; j < 14; j++) {
                 row.push(i === 19 || j < 2 || j >= 12 ? 13 : 0)
             }
-            this.board.push(row)
+            this.blocks.push(row)
         }
         this.gameOver = false
         this.pattern = patterns[Math.floor(patterns.length * Math.random())]
+        this.nextPattern = patterns[Math.floor(patterns.length * Math.random())]
         this.coordinates = [0, 5]
         this.paint()
     }
@@ -74,7 +75,7 @@ class Tetris {
         for (let coordinates of this.pattern.clockwise) {
             let i = coordinates[0] + this.coordinates[0]
             let j = coordinates[1] + this.coordinates[1]
-            if (this.board[i][j] !== 0) {
+            if (this.blocks[i][j] !== 0) {
                 // cannot move
                 return
             }
@@ -87,7 +88,7 @@ class Tetris {
         for (let coordinates of this.pattern.counterclockwise) {
             let i = coordinates[0] + this.coordinates[0]
             let j = coordinates[1] + this.coordinates[1]
-            if (this.board[i][j] !== 0) {
+            if (this.blocks[i][j] !== 0) {
                 // cannot move
                 return
             }
@@ -100,7 +101,7 @@ class Tetris {
         if (this.gameOver) {
             for (let i = 18; i >= 1; i--) {
                 for (let j = 2; j < 12; j++) {
-                    this.board[i][j] = 13
+                    this.blocks[i][j] = 13
                 }
             }
         } else {
@@ -109,7 +110,7 @@ class Tetris {
             for (let coordinates of this.pattern) {
                 let i = coordinates[0] + this.coordinates[0] + 1
                 let j = coordinates[1] + this.coordinates[1]
-                if (this.board[i][j] !== 0) {
+                if (this.blocks[i][j] !== 0) {
                     canMove = false
                     break
                 }
@@ -123,13 +124,13 @@ class Tetris {
                     let i = coordinates[0] + this.coordinates[0]
                     let j = coordinates[1] + this.coordinates[1]
                     let style = coordinates[2]
-                    this.board[i][j] = style
+                    this.blocks[i][j] = style
                 }
                 // find complete lines
                 for (let i = 1; i < 19; i++) {
                     let complete = true
                     for (let j = 2; j < 12; j++) {
-                        if (this.board[i][j] === 0) {
+                        if (this.blocks[i][j] === 0) {
                             complete = false
                             break
                         }
@@ -138,18 +139,19 @@ class Tetris {
                         // remove complete line
                         for (let i2 = i; i2 > 0; i2--) {
                             for (let j = 2; j < 12; j++) {
-                                this.board[i2][j] = this.board[i2 - 1][j]
+                                this.blocks[i2][j] = this.blocks[i2 - 1][j]
                             }
                         }
                     }
                 }
                 // create new pattern
-                this.pattern = patterns[Math.floor(patterns.length * Math.random())]
+                this.pattern = this.nextPattern
+                this.nextPattern = patterns[Math.floor(patterns.length * Math.random())]
                 this.coordinates = [0, 5]
                 for (let coordinates of this.pattern) {
                     let i = coordinates[0] + this.coordinates[0]
                     let j = coordinates[1] + this.coordinates[1]
-                    if (this.board[i][j] !== 0) {
+                    if (this.blocks[i][j] !== 0) {
                         this.gameOver = true
                     }
                 }
@@ -162,7 +164,7 @@ class Tetris {
         for (let coordinates of this.pattern) {
             let i = coordinates[0] + this.coordinates[0]
             let j = coordinates[1] + this.coordinates[1] - 1
-            if (this.board[i][j] !== 0) {
+            if (this.blocks[i][j] !== 0) {
                 // cannot move
                 return
             }
@@ -175,6 +177,7 @@ class Tetris {
         let canvas = document.getElementById("main-canvas")
         let context = canvas.getContext("2d")
         context.clearRect(32, 0, 160, 288)
+        context.clearRect(240, 208, 64, 64)
 
         let drawBlock = (i, j, style) => {
             i--
@@ -364,9 +367,17 @@ class Tetris {
             let style = coordinates[2]
             drawBlock(i, j, style)
         }
+        if (!this.gameOver) {
+            for (let coordinates of this.nextPattern) {
+                let i = coordinates[0] + 13
+                let j = coordinates[1] + 15
+                let style = coordinates[2]
+                drawBlock(i, j, style)
+            }
+        }
         for (let i = 1; i < 19; i++) {
             for (let j = 2; j < 12; j++) {
-                let style = this.board[i][j]
+                let style = this.blocks[i][j]
                 drawBlock(i, j, style)
             }
         }
@@ -379,6 +390,18 @@ class Tetris {
         context.fillRect(0, 0, 320, 288)
         context.fillStyle = WHITE
         context.fillRect(14, 0, 196, 288)
+        // preview area
+        context.fillStyle = BRIGHT
+        context.fillRect(230, 198, 84, 84)
+        context.fillStyle = WHITE
+        context.fillRect(232, 200, 80, 80)
+        context.fillStyle = DARK
+        context.fillRect(234, 202, 76, 76)
+        context.fillStyle = BLACK
+        context.fillRect(236, 204, 72, 72)
+        context.fillStyle = WHITE
+        context.fillRect(238, 206, 68, 68)
+        // walls
         for (let i = 0; i < 24; i++) {
             for (let j of [1, 12]) {
                 context.fillStyle = BLACK
@@ -402,7 +425,7 @@ class Tetris {
         for (let coordinates of this.pattern) {
             let i = coordinates[0] + this.coordinates[0]
             let j = coordinates[1] + this.coordinates[1] + 1
-            if (this.board[i][j] !== 0) {
+            if (this.blocks[i][j] !== 0) {
                 // cannot move
                 return
             }
