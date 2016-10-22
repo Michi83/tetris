@@ -99,6 +99,24 @@ class Tetris {
                         let style = coordinates[2]
                         this.board[i][j] = style
                     }
+                    // find complete rows
+                    for (let i = 1; i < 19; i++) {
+                        let complete = true
+                        for (let j = 2; j < 12; j++) {
+                            if (this.board[i][j] === 0) {
+                                complete = false
+                                break
+                            }
+                        }
+                        if (complete) {
+                            // delete complete row
+                            for (let i2 = i; i2 > 0; i2--) {
+                                for (let j = 2; j < 12; j++) {
+                                    this.board[i2][j] = this.board[i2 - 1][j]
+                                }
+                            }
+                        }
+                    }
                     return
                 }
             }
