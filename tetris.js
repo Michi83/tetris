@@ -1,17 +1,4 @@
 const IDIOTRIS = false
-const ZOOM = 3
-// colors
-const WHITE = "#FFFFFF"
-const BRIGHT = "#0080FF"
-const DARK = "#0000FF"
-const BLACK = "#000000"
-
-let canvas = document.getElementById("main-canvas")
-let context = canvas.getContext("2d")
-let fillRect = (i, j, width, height, color) => {
-    context.fillStyle = color
-    context.fillRect(ZOOM * i, ZOOM * j, ZOOM * width, ZOOM * height)
-}
 
 // define tetromino patterns
 let iPattern1 = [[2, 0, 1], [2, 1, 2], [2, 2, 2], [2, 3, 3]]
@@ -62,7 +49,7 @@ if (IDIOTRIS) {
 
 class Tetris {
     constructor() {
-        this.paintBackground()
+        paintBackground()
         this.blocks = []
         for (let i = 0; i < 20; i++) {
             let row = []
@@ -183,181 +170,26 @@ class Tetris {
     paint() {
         fillRect(16, 0, 80, 144, WHITE)
         fillRect(120, 104, 32, 32, WHITE)
-
-        let drawBlock = (i, j, style) => {
-            i--
-            fillRect(8 * j, 8 * i, 8, 8, BLACK)
-            switch (style) {
-                case 1:
-                fillRect(8 * j + 1, 8 * i + 1, 7, 6, BRIGHT)
-                fillRect(8 * j + 2, 8 * i + 1, 1, 1, DARK)
-                fillRect(8 * j + 5, 8 * i + 1, 1, 1, DARK)
-                fillRect(8 * j + 1, 8 * i + 3, 1, 1, DARK)
-                fillRect(8 * j + 4, 8 * i + 3, 1, 1, DARK)
-                fillRect(8 * j + 6, 8 * i + 3, 1, 1, DARK)
-                fillRect(8 * j + 2, 8 * i + 5, 1, 1, DARK)
-                fillRect(8 * j + 6, 8 * i + 5, 1, 1, DARK)
-                fillRect(8 * j + 4, 8 * i + 6, 1, 1, DARK)
-                break
-
-                case 2:
-                fillRect(8 * j, 8 * i + 1, 8, 6, BRIGHT)
-                fillRect(8 * j, 8 * i + 1, 1, 1, DARK)
-                fillRect(8 * j + 2, 8 * i + 1, 1, 1, DARK)
-                fillRect(8 * j + 4, 8 * i + 1, 1, 1, DARK)
-                fillRect(8 * j + 6, 8 * i + 2, 1, 1, DARK)
-                fillRect(8 * j + 2, 8 * i + 3, 1, 1, DARK)
-                fillRect(8 * j, 8 * i + 4, 1, 1, DARK)
-                fillRect(8 * j + 5, 8 * i + 4, 1, 1, DARK)
-                fillRect(8 * j + 3, 8 * i + 5, 1, 1, DARK)
-                fillRect(8 * j + 7, 8 * i + 5, 1, 1, DARK)
-                fillRect(8 * j + 1, 8 * i + 6, 1, 1, DARK)
-                fillRect(8 * j + 5, 8 * i + 6, 1, 1, DARK)
-                break
-
-                case 3:
-                fillRect(8 * j, 8 * i + 1, 7, 6, BRIGHT)
-                fillRect(8 * j, 8 * i + 1, 1, 1, DARK)
-                fillRect(8 * j + 4, 8 * i + 1, 1, 1, DARK)
-                fillRect(8 * j + 2, 8 * i + 2, 1, 1, DARK)
-                fillRect(8 * j + 5, 8 * i + 3, 1, 1, DARK)
-                fillRect(8 * j + 1, 8 * i + 4, 1, 1, DARK)
-                fillRect(8 * j + 3, 8 * i + 4, 1, 1, DARK)
-                fillRect(8 * j + 6, 8 * i + 5, 1, 1, DARK)
-                fillRect(8 * j + 2, 8 * i + 6, 1, 1, DARK)
-                fillRect(8 * j + 4, 8 * i + 6, 1, 1, DARK)
-                break
-
-                case 4:
-                fillRect(8 * j + 1, 8 * i + 1, 6, 7, BRIGHT)
-                fillRect(8 * j + 4, 8 * i + 1, 1, 1, DARK)
-                fillRect(8 * j + 2, 8 * i + 2, 1, 1, DARK)
-                fillRect(8 * j + 6, 8 * i + 2, 1, 1, DARK)
-                fillRect(8 * j + 1, 8 * i + 4, 1, 1, DARK)
-                fillRect(8 * j + 4, 8 * i + 4, 1, 1, DARK)
-                fillRect(8 * j + 6, 8 * i + 5, 1, 1, DARK)
-                fillRect(8 * j + 2, 8 * i + 6, 1, 1, DARK)
-                fillRect(8 * j + 4, 8 * i + 6, 1, 1, DARK)
-                break
-
-                case 5:
-                fillRect(8 * j + 1, 8 * i, 6, 8, BRIGHT)
-                fillRect(8 * j + 3, 8 * i, 1, 1, DARK)
-                fillRect(8 * j + 6, 8 * i, 1, 1, DARK)
-                fillRect(8 * j + 1, 8 * i + 1, 1, 1, DARK)
-                fillRect(8 * j + 4, 8 * i + 2, 1, 1, DARK)
-                fillRect(8 * j + 6, 8 * i + 2, 1, 1, DARK)
-                fillRect(8 * j + 2, 8 * i + 3, 1, 1, DARK)
-                fillRect(8 * j + 6, 8 * i + 4, 1, 1, DARK)
-                fillRect(8 * j + 1, 8 * i + 5, 1, 1, DARK)
-                fillRect(8 * j + 3, 8 * i + 5, 1, 1, DARK)
-                fillRect(8 * j + 5, 8 * i + 6, 1, 1, DARK)
-                fillRect(8 * j + 2, 8 * i + 7, 1, 1, DARK)
-                break
-
-                case 6:
-                fillRect(8 * j + 1, 8 * i, 6, 7, BRIGHT)
-                fillRect(8 * j + 6, 8 * i, 1, 1, DARK)
-                fillRect(8 * j + 3, 8 * i + 1, 1, 1, DARK)
-                fillRect(8 * j + 1, 8 * i + 2, 1, 1, DARK)
-                fillRect(8 * j + 5, 8 * i + 2, 1, 1, DARK)
-                fillRect(8 * j + 3, 8 * i + 3, 1, 1, DARK)
-                fillRect(8 * j + 1, 8 * i + 4, 1, 1, DARK)
-                fillRect(8 * j + 6, 8 * i + 4, 1, 1, DARK)
-                fillRect(8 * j + 4, 8 * i + 5, 1, 1, DARK)
-                fillRect(8 * j + 2, 8 * i + 6, 1, 1, DARK)
-                break
-
-                case 7:
-                fillRect(8 * j + 1, 8 * i + 1, 6, 6, BRIGHT)
-                fillRect(8 * j + 2, 8 * i + 2, 4, 4, BLACK)
-                fillRect(8 * j + 3, 8 * i + 3, 2, 2, WHITE)
-                break
-
-                case 8:
-                fillRect(8 * j + 1, 8 * i + 1, 6, 6, DARK)
-                break
-
-                case 9:
-                fillRect(8 * j + 1, 8 * i + 1, 6, 6, WHITE)
-                fillRect(8 * j + 2, 8 * i + 2, 4, 4, BLACK)
-                break
-
-                case 10:
-                fillRect(8 * j + 1, 8 * i + 1, 6, 6, DARK)
-                fillRect(8 * j + 2, 8 * i + 2, 4, 4, BLACK)
-                fillRect(8 * j + 3, 8 * i + 3, 2, 2, WHITE)
-                break
-
-                case 11:
-                fillRect(8 * j + 1, 8 * i + 1, 6, 6, BRIGHT)
-                fillRect(8 * j + 2, 8 * i + 2, 1, 3, WHITE)
-                fillRect(8 * j + 3, 8 * i + 2, 3, 1, WHITE)
-                fillRect(8 * j + 5, 8 * i + 3, 1, 3, BLACK)
-                fillRect(8 * j + 2, 8 * i + 5, 3, 1, BLACK)
-                break
-
-                case 12:
-                fillRect(8 * j + 1, 8 * i + 1, 6, 6, BRIGHT)
-                fillRect(8 * j + 3, 8 * i + 3, 2, 2, BLACK)
-                break
-
-                case 13:
-                fillRect(8 * j + 1, 8 * i + 1, 6, 6, BRIGHT)
-                fillRect(8 * j + 1, 8 * i + 1, 1, 5, WHITE)
-                fillRect(8 * j + 2, 8 * i + 1, 5, 1, WHITE)
-                fillRect(8 * j + 6, 8 * i + 2, 1, 5, DARK)
-                fillRect(8 * j + 1, 8 * i + 6, 5, 1, DARK)
-                break
-            }
-        }
-
         for (let coordinates of this.pattern) {
-            let i = coordinates[0] + this.coordinates[0]
+            let i = coordinates[0] + this.coordinates[0] - 1
             let j = coordinates[1] + this.coordinates[1]
             let style = coordinates[2]
-            drawBlock(i, j, style)
+            putBlock(i, j, style)
         }
         if (!this.gameOver) {
             for (let coordinates of this.nextPattern) {
-                let i = coordinates[0] + 13
+                let i = coordinates[0] + 12
                 let j = coordinates[1] + 15
                 let style = coordinates[2]
-                drawBlock(i, j, style)
+                putBlock(i, j, style)
             }
         }
         for (let i = 1; i < 19; i++) {
             for (let j = 2; j < 12; j++) {
                 let style = this.blocks[i][j]
                 if (style !== 0) {
-                    drawBlock(i, j, style)
+                    putBlock(i - 1, j, style)
                 }
-            }
-        }
-    }
-
-    paintBackground() {
-        fillRect(0, 0, 160, 144, BLACK)
-        fillRect(7, 0, 98, 144, WHITE)
-        // preview area
-        fillRect(115, 99, 42, 42, BRIGHT)
-        fillRect(116, 100, 40, 40, WHITE)
-        fillRect(117, 101, 38, 38, DARK)
-        fillRect(118, 102, 36, 36, BLACK)
-        fillRect(119, 103, 34, 34, WHITE)
-        // walls
-        for (let i = 0; i < 24; i++) {
-            for (let j of [1, 12]) {
-                fillRect(8 * j, 6 * i, 8, 6, BLACK)
-                fillRect(8 * j, 6 * i, 1, 2, BRIGHT)
-                fillRect(8 * j + 2, 6 * i, 3, 2, BRIGHT)
-                fillRect(8 * j + 6, 6 * i, 2, 2, BRIGHT)
-                fillRect(8 * j, 6 * i + 3, 3, 2, BRIGHT)
-                fillRect(8 * j + 4, 6 * i + 3, 3, 2, BRIGHT)
-                fillRect(8 * j + 2, 6 * i, 1, 1, WHITE)
-                fillRect(8 * j + 6, 6 * i, 1, 1, WHITE)
-                fillRect(8 * j, 6 * i + 3, 1, 1, WHITE)
-                fillRect(8 * j + 4, 6 * i + 3, 1, 1, WHITE)
             }
         }
     }
@@ -376,6 +208,436 @@ class Tetris {
     }
 }
 
+// graphic helper functions
+const ZOOM = 3
+const WHITE = "#FFFFFF"
+const BRIGHT = "#0080FF"
+const DARK = "#0000FF"
+const BLACK = "#000000"
+const COLORS = [BLACK, DARK, BRIGHT, WHITE]
+let canvas = document.getElementById("main-canvas")
+let context = canvas.getContext("2d")
+
+let fillRect = (i, j, width, height, color) => {
+    context.fillStyle = color
+    context.fillRect(ZOOM * i, ZOOM * j, ZOOM * width, ZOOM * height)
+}
+
+let paintBackground = () => {
+    fillRect(0, 0, 160, 144, BLACK)
+    fillRect(7, 0, 98, 144, WHITE)
+    // score area
+    fillRect(105, 13, 55, 22, WHITE)
+    fillRect(105, 14, 55, 7, DARK)
+    fillRect(105, 22, 55, 1, DARK)
+    fillRect(105, 33, 55, 1, DARK)
+    fillRect(109, 5, 46, 14, WHITE)
+    fillRect(110, 6, 44, 12, DARK)
+    fillRect(111, 7, 42, 10, WHITE)
+    putchar(1, 14, "S")
+    putchar(1, 15, "C")
+    putchar(1, 16, "O")
+    putchar(1, 17, "R")
+    putchar(1, 18, "E")
+    // level area
+    fillRect(109, 45, 46, 22, WHITE)
+    fillRect(110, 46, 44, 20, DARK)
+    fillRect(111, 47, 42, 18, WHITE)
+    putchar(6, 14, "L")
+    putchar(6, 15, "E")
+    putchar(6, 16, "V")
+    putchar(6, 17, "E")
+    putchar(6, 18, "L")
+    // lines area
+    fillRect(109, 69, 46, 22, WHITE)
+    fillRect(110, 70, 44, 20, DARK)
+    fillRect(111, 71, 42, 18, WHITE)
+    putchar(9, 14, "L")
+    putchar(9, 15, "I")
+    putchar(9, 16, "N")
+    putchar(9, 17, "E")
+    putchar(9, 18, "S")
+    // preview area
+    fillRect(115, 99, 42, 42, BRIGHT)
+    fillRect(116, 100, 40, 40, WHITE)
+    fillRect(117, 101, 38, 38, DARK)
+    fillRect(118, 102, 36, 36, BLACK)
+    fillRect(119, 103, 34, 34, WHITE)
+    // walls
+    for (let i = 0; i < 24; i++) {
+        for (let j of [1, 12]) {
+            fillRect(8 * j, 6 * i, 8, 6, BLACK)
+            fillRect(8 * j, 6 * i, 1, 2, BRIGHT)
+            fillRect(8 * j + 2, 6 * i, 3, 2, BRIGHT)
+            fillRect(8 * j + 6, 6 * i, 2, 2, BRIGHT)
+            fillRect(8 * j, 6 * i + 3, 3, 2, BRIGHT)
+            fillRect(8 * j + 4, 6 * i + 3, 3, 2, BRIGHT)
+            fillRect(8 * j + 2, 6 * i, 1, 1, WHITE)
+            fillRect(8 * j + 6, 6 * i, 1, 1, WHITE)
+            fillRect(8 * j, 6 * i + 3, 1, 1, WHITE)
+            fillRect(8 * j + 4, 6 * i + 3, 1, 1, WHITE)
+        }
+    }
+}
+
+let blocks = [
+    [
+        [3, 3, 3, 3, 3, 3, 3, 3],
+        [3, 3, 3, 3, 3, 3, 3, 3],
+        [3, 3, 3, 3, 3, 3, 3, 3],
+        [3, 3, 3, 3, 3, 3, 3, 3],
+        [3, 3, 3, 3, 3, 3, 3, 3],
+        [3, 3, 3, 3, 3, 3, 3, 3],
+        [3, 3, 3, 3, 3, 3, 3, 3],
+        [3, 3, 3, 3, 3, 3, 3, 3],
+    ],
+    [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 2, 1, 2, 2, 1, 2, 2],
+        [0, 2, 2, 2, 2, 2, 2, 2],
+        [0, 1, 2, 2, 1, 2, 1, 2],
+        [0, 2, 2, 2, 2, 2, 2, 2],
+        [0, 2, 1, 2, 2, 2, 1, 2],
+        [0, 2, 2, 2, 1, 2, 2, 2],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [1, 2, 1, 2, 1, 2, 2, 2],
+        [2, 2, 2, 2, 2, 2, 1, 2],
+        [2, 2, 1, 2, 2, 2, 2, 2],
+        [1, 2, 2, 2, 2, 1, 2, 2],
+        [2, 2, 2, 1, 2, 2, 2, 1],
+        [2, 1, 2, 2, 2, 1, 2, 2],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [1, 2, 2, 2, 1, 2, 2, 0],
+        [2, 2, 1, 2, 2, 2, 2, 0],
+        [2, 2, 2, 2, 2, 1, 2, 0],
+        [2, 1, 2, 1, 2, 2, 2, 0],
+        [2, 2, 2, 2, 2, 2, 1, 0],
+        [2, 2, 1, 2, 1, 2, 2, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 2, 2, 2, 1, 2, 2, 0],
+        [0, 2, 1, 2, 2, 2, 1, 0],
+        [0, 2, 2, 2, 2, 2, 2, 0],
+        [0, 1, 2, 2, 1, 2, 2, 0],
+        [0, 2, 2, 2, 2, 2, 1, 0],
+        [0, 2, 1, 2, 1, 2, 2, 0],
+        [0, 2, 2, 2, 2, 2, 2, 0],
+    ],
+    [
+        [0, 2, 2, 1, 2, 2, 1, 0],
+        [0, 1, 2, 2, 2, 2, 2, 0],
+        [0, 2, 2, 2, 1, 2, 1, 0],
+        [0, 2, 1, 2, 2, 2, 2, 0],
+        [0, 2, 2, 2, 2, 2, 1, 0],
+        [0, 1, 2, 1, 2, 2, 2, 0],
+        [0, 2, 2, 2, 2, 1, 2, 0],
+        [0, 2, 1, 2, 2, 2, 2, 0],
+    ],
+    [
+        [0, 2, 2, 2, 2, 2, 1, 0],
+        [0, 2, 2, 1, 2, 2, 2, 0],
+        [0, 1, 2, 2, 2, 1, 2, 0],
+        [0, 2, 2, 1, 2, 2, 2, 0],
+        [0, 1, 2, 2, 2, 2, 1, 0],
+        [0, 2, 2, 2, 1, 2, 2, 0],
+        [0, 2, 1, 2, 2, 2, 2, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 2, 2, 2, 2, 2, 2, 0],
+        [0, 2, 0, 0, 0, 0, 2, 0],
+        [0, 2, 0, 3, 3, 0, 2, 0],
+        [0, 2, 0, 3, 3, 0, 2, 0],
+        [0, 2, 0, 0, 0, 0, 2, 0],
+        [0, 2, 2, 2, 2, 2, 2, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 1, 0],
+        [0, 1, 1, 1, 1, 1, 1, 0],
+        [0, 1, 1, 1, 1, 1, 1, 0],
+        [0, 1, 1, 1, 1, 1, 1, 0],
+        [0, 1, 1, 1, 1, 1, 1, 0],
+        [0, 1, 1, 1, 1, 1, 1, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 3, 3, 3, 3, 3, 3, 0],
+        [0, 3, 0, 0, 0, 0, 3, 0],
+        [0, 3, 0, 0, 0, 0, 3, 0],
+        [0, 3, 0, 0, 0, 0, 3, 0],
+        [0, 3, 0, 0, 0, 0, 3, 0],
+        [0, 3, 3, 3, 3, 3, 3, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 1, 0],
+        [0, 1, 0, 0, 0, 0, 1, 0],
+        [0, 1, 0, 3, 3, 0, 1, 0],
+        [0, 1, 0, 3, 3, 0, 1, 0],
+        [0, 1, 0, 0, 0, 0, 1, 0],
+        [0, 1, 1, 1, 1, 1, 1, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 2, 2, 2, 2, 2, 2, 0],
+        [0, 2, 3, 3, 3, 3, 2, 0],
+        [0, 2, 3, 2, 2, 0, 2, 0],
+        [0, 2, 3, 2, 2, 0, 2, 0],
+        [0, 2, 0, 0, 0, 0, 2, 0],
+        [0, 2, 2, 2, 2, 2, 2, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 2, 2, 2, 2, 2, 2, 0],
+        [0, 2, 2, 2, 2, 2, 2, 0],
+        [0, 2, 2, 0, 0, 2, 2, 0],
+        [0, 2, 2, 0, 0, 2, 2, 0],
+        [0, 2, 2, 2, 2, 2, 2, 0],
+        [0, 2, 2, 2, 2, 2, 2, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 3, 3, 3, 3, 3, 3, 0],
+        [0, 3, 2, 2, 2, 2, 1, 0],
+        [0, 3, 2, 2, 2, 2, 1, 0],
+        [0, 3, 2, 2, 2, 2, 1, 0],
+        [0, 3, 2, 2, 2, 2, 1, 0],
+        [0, 1, 1, 1, 1, 1, 1, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+]
+
+let putBlock = (i, j, style) => {
+    let block = blocks[style]
+    for (let i2 = 0; i2 < 8; i2++) {
+        for (let j2 = 0; j2 < 8; j2++) {
+            let color = COLORS[block[i2][j2]]
+            fillRect(8 * j + j2, 8 * i + i2, 1, 1, color)
+        }
+    }
+}
+
+let chars = {
+    "0": [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 1, 1, 0, 0, 1, 1, 0],
+        [0, 1, 1, 0, 0, 1, 1, 0],
+        [0, 1, 1, 0, 0, 1, 1, 0],
+        [0, 1, 1, 0, 0, 1, 1, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    "1": [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 0, 0, 0],
+        [0, 0, 0, 1, 1, 0, 0, 0],
+        [0, 0, 0, 1, 1, 0, 0, 0],
+        [0, 0, 0, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    "2": [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 1, 0, 0, 1, 1, 1, 0],
+        [0, 0, 0, 0, 1, 1, 1, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 1, 1, 1, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 1, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    "3": [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 1, 1, 1, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 1, 1, 1, 0],
+        [0, 0, 0, 0, 1, 1, 1, 0],
+        [0, 1, 1, 1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    "4": [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 1, 1, 0, 1, 1, 0, 0],
+        [0, 1, 0, 0, 1, 1, 0, 0],
+        [0, 1, 0, 0, 1, 1, 1, 0],
+        [0, 1, 1, 1, 1, 1, 1, 0],
+        [0, 0, 0, 0, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    "5": [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 0, 0],
+        [0, 1, 1, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 1, 1, 1, 0],
+        [0, 1, 0, 0, 1, 1, 1, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    "6": [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 1, 1, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 0, 0],
+        [0, 1, 1, 0, 0, 1, 1, 0],
+        [0, 1, 1, 0, 0, 1, 1, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    "7": [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 1, 0],
+        [0, 0, 0, 0, 0, 1, 1, 0],
+        [0, 0, 0, 0, 1, 1, 0, 0],
+        [0, 0, 0, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    "8": [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 1, 0, 0, 1, 1, 1, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 1, 0, 0, 1, 1, 1, 0],
+        [0, 1, 0, 0, 1, 1, 1, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    "9": [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 1, 0, 0, 1, 1, 1, 0],
+        [0, 1, 0, 0, 1, 1, 1, 0],
+        [0, 0, 1, 1, 1, 1, 1, 0],
+        [0, 0, 0, 0, 1, 1, 1, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    "C": [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 1, 1, 0, 0, 1, 1, 0],
+        [0, 1, 1, 0, 0, 0, 0, 0],
+        [0, 1, 1, 0, 0, 0, 0, 0],
+        [0, 1, 1, 0, 0, 1, 1, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    "E": [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 1, 0],
+        [0, 1, 1, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 0, 0],
+        [0, 1, 1, 0, 0, 0, 0, 0],
+        [0, 1, 1, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 1, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    "I": [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 0, 0, 1, 1, 0, 0, 0],
+        [0, 0, 0, 1, 1, 0, 0, 0],
+        [0, 0, 0, 1, 1, 0, 0, 0],
+        [0, 0, 0, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    "L": [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 1, 0, 0, 0, 0, 0],
+        [0, 1, 1, 0, 0, 0, 0, 0],
+        [0, 1, 1, 0, 0, 0, 0, 0],
+        [0, 1, 1, 0, 0, 0, 0, 0],
+        [0, 1, 1, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 1, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    "N": [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 0, 0, 0, 1, 1, 0],
+        [0, 1, 1, 0, 0, 1, 1, 0],
+        [0, 1, 1, 1, 0, 1, 1, 0],
+        [0, 1, 0, 1, 1, 1, 1, 0],
+        [0, 1, 0, 0, 1, 1, 1, 0],
+        [0, 1, 0, 0, 0, 1, 1, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    "O": [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 1, 1, 0, 0, 1, 1, 0],
+        [0, 1, 1, 0, 0, 1, 1, 0],
+        [0, 1, 1, 0, 0, 1, 1, 0],
+        [0, 1, 1, 0, 0, 1, 1, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    "R": [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 0, 0],
+        [0, 1, 1, 0, 0, 1, 1, 0],
+        [0, 1, 1, 0, 0, 1, 1, 0],
+        [0, 1, 1, 1, 1, 1, 0, 0],
+        [0, 1, 1, 0, 1, 0, 0, 0],
+        [0, 1, 1, 0, 0, 1, 1, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    "S": [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 1, 1, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 1, 1, 1, 0],
+        [0, 1, 0, 0, 1, 1, 1, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    "V": [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 0, 0, 0, 1, 1, 0],
+        [0, 1, 0, 0, 0, 1, 1, 0],
+        [0, 1, 0, 0, 0, 1, 1, 0],
+        [0, 1, 0, 0, 0, 1, 1, 0],
+        [0, 0, 1, 0, 1, 1, 0, 0],
+        [0, 0, 0, 1, 1, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+}
+
+let putchar = (i, j, char) => {
+    fillRect(8 * j, 8 * i, 8, 8, WHITE)
+    for (let i2 = 0; i2 < 8; i2++) {
+        for (let j2 = 0; j2 < 8; j2++) {
+            if (chars[char][i2][j2] === 1) {
+                fillRect(8 * j + j2, 8 * i + i2, 1, 1, BLACK)
+            }
+        }
+    }
+}
+
+// initialization
 let tetris = new Tetris()
 document.addEventListener(
     "keydown",
