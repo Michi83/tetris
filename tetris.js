@@ -62,6 +62,7 @@ class Tetris {
         this.pattern = patterns[Math.floor(patterns.length * Math.random())]
         this.nextPattern = patterns[Math.floor(patterns.length * Math.random())]
         this.coordinates = [0, 5]
+        this.lines = 0
         this.paint()
     }
 
@@ -130,6 +131,7 @@ class Tetris {
                         }
                     }
                     if (complete) {
+                        this.lines++
                         // remove complete line
                         for (let i2 = i; i2 > 0; i2--) {
                             for (let j = 2; j < 12; j++) {
@@ -170,12 +172,14 @@ class Tetris {
     paint() {
         fillRect(16, 0, 80, 144, WHITE)
         fillRect(120, 104, 32, 32, WHITE)
+        // active block
         for (let coordinates of this.pattern) {
             let i = coordinates[0] + this.coordinates[0] - 1
             let j = coordinates[1] + this.coordinates[1]
             let style = coordinates[2]
             putBlock(i, j, style)
         }
+        // preview
         if (!this.gameOver) {
             for (let coordinates of this.nextPattern) {
                 let i = coordinates[0] + 12
@@ -184,6 +188,7 @@ class Tetris {
                 putBlock(i, j, style)
             }
         }
+        // dead blocks
         for (let i = 1; i < 19; i++) {
             for (let j = 2; j < 12; j++) {
                 let style = this.blocks[i][j]
@@ -191,6 +196,11 @@ class Tetris {
                     putBlock(i - 1, j, style)
                 }
             }
+        }
+        // line counter
+        let lines = this.lines + ""
+        for (let i = 0; i < lines.length; i++) {
+            putchar(10, 18 - lines.length + i, lines[i])
         }
     }
 
@@ -211,8 +221,8 @@ class Tetris {
 // graphic helper functions
 const ZOOM = 3
 const WHITE = "#FFFFFF"
-const BRIGHT = "#0080FF"
-const DARK = "#0000FF"
+const BRIGHT = "#FFFF00"
+const DARK = "#FF0000"
 const BLACK = "#000000"
 const COLORS = [BLACK, DARK, BRIGHT, WHITE]
 let canvas = document.getElementById("main-canvas")
