@@ -217,17 +217,17 @@ class Tetris {
 
 // graphic helper functions
 const ZOOM = 3
-const WHITE = "#80FF80"
-const BRIGHT = "#00FF00"
-const DARK = "#008000"
-const BLACK = "#004000"
+const WHITE = "#FFFFFF"
+const BRIGHT = "#FFFF00"
+const DARK = "#FF0000"
+const BLACK = "#000000"
 const COLORS = [BLACK, DARK, BRIGHT, WHITE]
 let canvas = document.getElementById("main-canvas")
 let context = canvas.getContext("2d")
 
-let fillRect = (i, j, width, height, color) => {
+let fillRect = (x, y, width, height, color) => {
     context.fillStyle = color
-    context.fillRect(ZOOM * i, ZOOM * j, ZOOM * width, ZOOM * height)
+    context.fillRect(ZOOM * x, ZOOM * y, ZOOM * width, ZOOM * height)
 }
 
 let paintBackground = () => {
@@ -238,26 +238,29 @@ let paintBackground = () => {
     fillRect(105, 14, 55, 7, DARK)
     fillRect(105, 22, 55, 1, DARK)
     fillRect(105, 33, 55, 1, DARK)
-    fillRect(109, 5, 46, 14, WHITE)
-    fillRect(110, 6, 44, 12, DARK)
-    fillRect(111, 7, 42, 10, WHITE)
+    drawBox(0, 13, 3, 7)
     putString(1, 14, "SCORE")
     // level area
-    fillRect(109, 45, 46, 22, WHITE)
-    fillRect(110, 46, 44, 20, DARK)
-    fillRect(111, 47, 42, 18, WHITE)
+    drawBox(5, 13, 4, 7)
     putString(6, 14, "LEVEL")
     // lines area
-    fillRect(109, 69, 46, 22, WHITE)
-    fillRect(110, 70, 44, 20, DARK)
-    fillRect(111, 71, 42, 18, WHITE)
+    drawBox(8, 13, 4, 7)
     putString(9, 14, "LINES")
     // preview area
-    fillRect(115, 99, 42, 42, BRIGHT)
-    fillRect(116, 100, 40, 40, WHITE)
-    fillRect(117, 101, 38, 38, DARK)
-    fillRect(118, 102, 36, 36, BLACK)
+    fillRect(117, 99, 38, 42, BRIGHT)
+    fillRect(116, 100, 40, 40, BRIGHT)
+    fillRect(115, 101, 42, 38, BRIGHT)
+    fillRect(117, 100, 38, 40, WHITE)
+    fillRect(116, 101, 40, 38, WHITE)
+    fillRect(118, 101, 36, 38, BRIGHT)
+    fillRect(117, 102, 38, 36, BRIGHT)
+    fillRect(119, 101, 34, 38, DARK)
+    fillRect(118, 102, 36, 36, DARK)
+    fillRect(117, 103, 38, 34, DARK)
+    fillRect(119, 102, 34, 36, BLACK)
+    fillRect(118, 103, 36, 34, BLACK)
     fillRect(119, 103, 34, 34, WHITE)
+
     // walls
     for (let i = 0; i < 24; i++) {
         for (let j of [1, 12]) {
@@ -641,6 +644,15 @@ let putString = (i, j, string) => {
 let putNumber = (i, j, number) => {
     number += ""
     putString(i, j - number.length + 1, number)
+}
+
+let drawBox = (i, j, height, width) => {
+    fillRect(8 * j + 5, 8 * i + 6, 8 * width - 10, 8 * height - 12, WHITE)
+    fillRect(8 * j + 6, 8 * i + 5, 8 * width - 12, 8 * height - 10, WHITE)
+    fillRect(8 * j + 6, 8 * i + 7, 8 * width - 12, 8 * height - 14, DARK)
+    fillRect(8 * j + 7, 8 * i + 6, 8 * width - 14, 8 * height - 12, DARK)
+    fillRect(8 * j + 7, 8 * i + 8, 8 * width - 14, 8 * height - 16, WHITE)
+    fillRect(8 * j + 8, 8 * i + 7, 8 * width - 16, 8 * height - 14, WHITE)
 }
 
 // initialization
