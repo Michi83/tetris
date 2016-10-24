@@ -198,10 +198,7 @@ class Tetris {
             }
         }
         // line counter
-        let lines = this.lines + ""
-        for (let i = 0; i < lines.length; i++) {
-            putchar(10, 18 - lines.length + i, lines[i])
-        }
+        putNumber(10, 17, this.lines)
     }
 
     right() {
@@ -220,10 +217,10 @@ class Tetris {
 
 // graphic helper functions
 const ZOOM = 3
-const WHITE = "#FFFFFF"
-const BRIGHT = "#FFFF00"
-const DARK = "#FF0000"
-const BLACK = "#000000"
+const WHITE = "#80FF80"
+const BRIGHT = "#00FF00"
+const DARK = "#008000"
+const BLACK = "#004000"
 const COLORS = [BLACK, DARK, BRIGHT, WHITE]
 let canvas = document.getElementById("main-canvas")
 let context = canvas.getContext("2d")
@@ -244,29 +241,17 @@ let paintBackground = () => {
     fillRect(109, 5, 46, 14, WHITE)
     fillRect(110, 6, 44, 12, DARK)
     fillRect(111, 7, 42, 10, WHITE)
-    putchar(1, 14, "S")
-    putchar(1, 15, "C")
-    putchar(1, 16, "O")
-    putchar(1, 17, "R")
-    putchar(1, 18, "E")
+    putString(1, 14, "SCORE")
     // level area
     fillRect(109, 45, 46, 22, WHITE)
     fillRect(110, 46, 44, 20, DARK)
     fillRect(111, 47, 42, 18, WHITE)
-    putchar(6, 14, "L")
-    putchar(6, 15, "E")
-    putchar(6, 16, "V")
-    putchar(6, 17, "E")
-    putchar(6, 18, "L")
+    putString(6, 14, "LEVEL")
     // lines area
     fillRect(109, 69, 46, 22, WHITE)
     fillRect(110, 70, 44, 20, DARK)
     fillRect(111, 71, 42, 18, WHITE)
-    putchar(9, 14, "L")
-    putchar(9, 15, "I")
-    putchar(9, 16, "N")
-    putchar(9, 17, "E")
-    putchar(9, 18, "S")
+    putString(9, 14, "LINES")
     // preview area
     fillRect(115, 99, 42, 42, BRIGHT)
     fillRect(116, 100, 40, 40, WHITE)
@@ -645,6 +630,17 @@ let putchar = (i, j, char) => {
             }
         }
     }
+}
+
+let putString = (i, j, string) => {
+    for (let j2 = 0; j2 < string.length; j2++) {
+        putchar(i, j + j2, string[j2])
+    }
+}
+
+let putNumber = (i, j, number) => {
+    number += ""
+    putString(i, j - number.length + 1, number)
 }
 
 // initialization
