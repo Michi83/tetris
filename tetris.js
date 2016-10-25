@@ -64,6 +64,43 @@ class Tetris {
         this.coordinates = [0, 5]
         this.lines = 0
         this.paint()
+        // set key listeners
+        document.addEventListener(
+            "keydown",
+            (event) => {
+                switch (event.key) {
+                    case ".":
+                    tetris.clockwise()
+                    break
+
+                    case ",":
+                    tetris.counterclockwise()
+                    break
+
+                    case "ArrowDown":
+                    tetris.down()
+                    break
+
+                    case "ArrowLeft":
+                    tetris.left()
+                    break
+
+                    case "ArrowRight":
+                    tetris.right()
+                    break
+                }
+            }
+        )
+        // start game
+        let autoDown = () => {
+            this.down()
+            setTimeout(autoDown, 1000 - 45 * this.level)
+        }
+        setTimeout(autoDown, 1000)
+    }
+
+    get level() {
+        return Math.min(Math.floor(this.lines / 10), 20)
     }
 
     clockwise() {
@@ -197,6 +234,8 @@ class Tetris {
                 }
             }
         }
+        // level
+        putNumber(7, 17, this.level)
         // line counter
         putNumber(10, 17, this.lines)
     }
@@ -217,10 +256,10 @@ class Tetris {
 
 // graphic helper functions
 const ZOOM = 3
-const WHITE = "#FFFFFF"
-const BRIGHT = "#FFFF00"
-const DARK = "#FF0000"
-const BLACK = "#000000"
+const WHITE = "#9bbc0f"
+const BRIGHT = "#8bac0f"
+const DARK = "#306230"
+const BLACK = "#0f380f"
 const COLORS = [BLACK, DARK, BRIGHT, WHITE]
 let canvas = document.getElementById("main-canvas")
 let context = canvas.getContext("2d")
@@ -655,32 +694,5 @@ let drawBox = (i, j, height, width) => {
     fillRect(8 * j + 8, 8 * i + 7, 8 * width - 16, 8 * height - 14, WHITE)
 }
 
-// initialization
-let tetris = new Tetris()
-document.addEventListener(
-    "keydown",
-    (event) => {
-        switch (event.key) {
-            case ".":
-            tetris.clockwise()
-            break
-
-            case ",":
-            tetris.counterclockwise()
-            break
-
-            case "ArrowDown":
-            tetris.down()
-            break
-
-            case "ArrowLeft":
-            tetris.left()
-            break
-
-            case "ArrowRight":
-            tetris.right()
-            break
-        }
-    }
-)
-setInterval(() => {tetris.down()}, 1000)
+// start the game
+new Tetris()
