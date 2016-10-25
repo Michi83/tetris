@@ -70,23 +70,23 @@ class Tetris {
             (event) => {
                 switch (event.key) {
                     case ".":
-                    tetris.clockwise()
+                    this.clockwise()
                     break
 
                     case ",":
-                    tetris.counterclockwise()
+                    this.counterclockwise()
                     break
 
                     case "ArrowDown":
-                    tetris.down()
+                    this.down()
                     break
 
                     case "ArrowLeft":
-                    tetris.left()
+                    this.left()
                     break
 
                     case "ArrowRight":
-                    tetris.right()
+                    this.right()
                     break
                 }
             }
@@ -255,7 +255,7 @@ class Tetris {
 }
 
 // graphic helper functions
-const ZOOM = 3
+const ZOOM = 4
 const WHITE = "#9bbc0f"
 const BRIGHT = "#8bac0f"
 const DARK = "#306230"
