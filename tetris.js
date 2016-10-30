@@ -1,4 +1,4 @@
-const IDIOTRIS = true
+const IDIOTRIS = false
 
 // define tetromino patterns
 let iPattern1 = [[2, 0, 1], [2, 1, 2], [2, 2, 2], [2, 3, 3]]
@@ -157,7 +157,6 @@ class Tetris {
             if (canMove) {
                 // we can move down
                 this.coordinates[0]++
-                this.paint()
             } else {
                 // we cannot move down
                 for (let coordinates of this.pattern) {
@@ -183,6 +182,7 @@ class Tetris {
                 }
             }
         }
+        this.paint()
     }
 
     left() {
@@ -715,6 +715,7 @@ let tick = () => {
     } else if (tetris.state === "clear lines") {
         if (tetris.completeLines.length === 0) {
             tetris.putNextPattern()
+            tickCounter = -1
         } else {
             if (tickCounter === 0 || tickCounter === 10 || tickCounter === 20) {
                 for (let line of tetris.completeLines) {
