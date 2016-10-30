@@ -1,4 +1,4 @@
-const IDIOTRIS = false
+const IDIOTRIS = true
 
 // define tetromino patterns
 let iPattern1 = [[2, 0, 1], [2, 1, 2], [2, 2, 2], [2, 3, 3]]
@@ -63,6 +63,7 @@ class Tetris {
         this.nextPattern = patterns[Math.floor(patterns.length * Math.random())]
         this.coordinates = [0, 5]
         this.lines = 0
+        this.state = "active"
         this.paint()
         // set key listeners
         document.addEventListener(
@@ -91,16 +92,22 @@ class Tetris {
                 }
             }
         )
-        // start game
-        let autoDown = () => {
-            this.down()
-            setTimeout(autoDown, 1000 - 45 * this.level)
-        }
-        setTimeout(autoDown, 1000)
     }
 
     get level() {
         return Math.min(Math.floor(this.lines / 10), 20)
+    }
+
+    clearLines() {
+        for (let line of this.completeLines) {
+            for (let i = line; i > 0; i--) {
+                for (let j = 2; j < 12; j++) {
+                    this.blocks[i][j] = this.blocks[i - 1][j]
+                }
+            }
+            this.lines++
+        }
+        this.putNextPattern()
     }
 
     clockwise() {
@@ -150,6 +157,7 @@ class Tetris {
             if (canMove) {
                 // we can move down
                 this.coordinates[0]++
+                this.paint()
             } else {
                 // we cannot move down
                 for (let coordinates of this.pattern) {
@@ -159,6 +167,8 @@ class Tetris {
                     this.blocks[i][j] = style
                 }
                 // find complete lines
+                this.state = "clear lines"
+                this.completeLines = []
                 for (let i = 1; i < 19; i++) {
                     let complete = true
                     for (let j = 2; j < 12; j++) {
@@ -168,29 +178,11 @@ class Tetris {
                         }
                     }
                     if (complete) {
-                        this.lines++
-                        // remove complete line
-                        for (let i2 = i; i2 > 0; i2--) {
-                            for (let j = 2; j < 12; j++) {
-                                this.blocks[i2][j] = this.blocks[i2 - 1][j]
-                            }
-                        }
-                    }
-                }
-                // create new pattern
-                this.pattern = this.nextPattern
-                this.nextPattern = patterns[Math.floor(patterns.length * Math.random())]
-                this.coordinates = [0, 5]
-                for (let coordinates of this.pattern) {
-                    let i = coordinates[0] + this.coordinates[0]
-                    let j = coordinates[1] + this.coordinates[1]
-                    if (this.blocks[i][j] !== 0) {
-                        this.gameOver = true
+                        this.completeLines.push(i)
                     }
                 }
             }
         }
-        this.paint()
     }
 
     left() {
@@ -203,6 +195,21 @@ class Tetris {
             }
         }
         this.coordinates[1]--
+        this.paint()
+    }
+
+    putNextPattern() {
+        this.pattern = this.nextPattern
+        this.nextPattern = patterns[Math.floor(patterns.length * Math.random())]
+        this.coordinates = [0, 5]
+        this.state = "active"
+        for (let coordinates of this.pattern) {
+            let i = coordinates[0] + this.coordinates[0]
+            let j = coordinates[1] + this.coordinates[1]
+            if (this.blocks[i][j] !== 0) {
+                this.gameOver = true
+            }
+        }
         this.paint()
     }
 
@@ -695,4 +702,32 @@ let drawBox = (i, j, height, width) => {
 }
 
 // start the game
-new Tetris()
+let tetris = new Tetris()
+let tickCounter = 0
+let tick = () => {
+    // a tick occurs once every 40 ms
+    // after a certain number of ticks the block moves down automatically
+    if (tetris.state === "active") {
+        if (tickCounter === 25 - tetris.level) {
+            tetris.down()
+            tickCounter = -1
+        }
+    } else if (tetris.state === "clear lines") {
+        if (tetris.completeLines.length === 0) {
+            tetris.putNextPattern()
+        } else {
+            if (tickCounter === 0 || tickCounter === 10 || tickCounter === 20) {
+                for (let line of tetris.completeLines) {
+                    fillRect(16, 8 * (line -1), 80, 8, BRIGHT) // flash complete line
+                }
+            } else if (tickCounter === 5 || tickCounter === 15) {
+                tetris.paint()
+            } else if (tickCounter === 25) {
+                tetris.clearLines()
+                tickCounter = -1
+            }
+        }
+    }
+    tickCounter++
+}
+setInterval(tick, 40)
